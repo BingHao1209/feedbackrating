@@ -1,5 +1,6 @@
+import 'package:feedback_and_rating_1/pages/home.dart';
 import 'package:flutter/material.dart';
-import '../data/feedback_library.dart';
+import '../data.dart';
 
 class Feedback1 extends StatefulWidget {
   const Feedback1({super.key});
@@ -21,6 +22,31 @@ class _FeedbackState extends State<Feedback1> {
   late List<bool> selected;
   final commentsController = TextEditingController();
 
+  void _showPrompt(BuildContext context) async {
+    await showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Thank you!'),
+          content:
+          const Text('Thanks for you feedback!!'),
+          actions: [
+            TextButton(
+              // style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(Colors.lightGreen),),
+              onPressed: () {
+                Navigator.pop(context, true);
+              },
+              child: const Text('Return to home page'),
+            ),
+          ],
+        );
+      },
+    ).then((result) {
+        Navigator.pop(context);
+    });
+  }
+
+
   @override
   void initState() {
     super.initState();
@@ -30,7 +56,9 @@ class _FeedbackState extends State<Feedback1> {
   @override
   Widget build(BuildContext context) {
     final max_width = MediaQuery.of(context).size.width;
-    final max_height = MediaQuery.of(context).size.height - AppBar().preferredSize.height - MediaQuery.of(context).padding.top;
+    final max_height = MediaQuery.of(context).size.height -
+        AppBar().preferredSize.height -
+        MediaQuery.of(context).padding.top;
     return Scaffold(
       backgroundColor: Colors.white30,
       appBar: AppBar(
@@ -121,7 +149,10 @@ class _FeedbackState extends State<Feedback1> {
                 ),
               ),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  feedbackLibraryInstance.addFeedback(stars: _rating, category: categories[selected.indexWhere((element) => true)], comment: commentsController.text);
+                  _showPrompt(context);
+                },
                 child: const Text('Submit'),
               ),
             ],

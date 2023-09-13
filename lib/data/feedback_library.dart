@@ -1,15 +1,16 @@
 import 'feedback_record.dart';
 
+FeedbackLibrary feedbackLibraryInstance = FeedbackLibrary();
+
 class FeedbackLibrary{
   final List<FeedbackRecord> feedbacks = [];
 
   void addFeedback({
-    required String name,
     required int stars,
-    required List<String> category,
+    required String category,
     required String comment,
   }){
-    FeedbackRecord feedbackRecord = FeedbackRecord(feedbacks.length, name, stars, category, comment);
+    FeedbackRecord feedbackRecord = FeedbackRecord(feedbacks.length, stars, category, comment);
     feedbacks.add(feedbackRecord);
   }
 
