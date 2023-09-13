@@ -146,7 +146,9 @@ class _FeedbackState extends State<Feedback1> {
                     border: InputBorder.none,
                   ),
                   controller: commentsController,
+                  maxLines: null,
                 ),
+
               ),
               ElevatedButton(
                 onPressed: () {
