@@ -152,7 +152,8 @@ class _FeedbackState extends State<Feedback1> {
               ),
               ElevatedButton(
                 onPressed: () {
-                  feedbackLibraryInstance.addFeedback(stars: _rating, category: categories[selected.indexWhere((element) => true)], comment: commentsController.text);
+                  final int categoryIndex =selected.indexWhere((element) => element ==true);
+                  feedbackLibraryInstance.addFeedback(stars: _rating, category: categories[categoryIndex], comment: commentsController.text);
                   _showPrompt(context);
                 },
                 child: const Text('Submit'),
