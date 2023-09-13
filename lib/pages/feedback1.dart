@@ -10,14 +10,14 @@ class Feedback1 extends StatefulWidget {
 
 class _FeedbackState extends State<Feedback1> {
   int _rating = 0;
-  List<String> categories = [
-    'Feedback',
-    'IT Department',
-    'Error',
-    'Customer Service',
-    'Design',
-    'Response Time'
-  ];
+  final List<String> categories = [
+  'Feedback',
+  'IT Department',
+  'Error',
+  'Customer Service',
+  'Design',
+  'Response Time'];
+  late List<bool> selected;
 
   @override
   Widget build(BuildContext context) {
@@ -60,23 +60,31 @@ class _FeedbackState extends State<Feedback1> {
             Padding(
               padding: const EdgeInsets.only(top: 30),
               child: Wrap(
-                children: categories.map((category) {
-                  return Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(
-                        color: Colors.black,
-                        width: 1.5,
+                children: List.generate(categories.length, (index) {
+                  return GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        selected = List.filled(categories.length, false);
+                        selected[index] = !selected[index];
+                      });
+                      debugPrint(categories[index]);
+                    },
+                    child: AnimatedContainer(
+                      duration: const Duration(milliseconds: 200),
+                      decoration: BoxDecoration(
+                        color: selected[index] ? Colors.cyanAccent : null,
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(
+                          color: Colors.black,
+                          width: 1.5,
+                        ),
                       ),
-                    ),
-                    margin: const EdgeInsets.all(5),
-                    padding: const EdgeInsets.all(5),
-                    child: TextButton(
-                      child: Text(category),
-                      onPressed: (){},
+                      margin: const EdgeInsets.all(5),
+                      padding: const EdgeInsets.all(5),
+                      child: Text(categories[index]),
                     ),
                   );
-                }).toList(),
+                }),
               ),
             ),
             const Padding(
